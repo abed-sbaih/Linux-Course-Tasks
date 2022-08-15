@@ -34,7 +34,8 @@ CREATE DATABASE studentdb;
 USE studentdb;
 
 # creating table and inserting required data
-CREATE TABLE student(firstname varchar(255), lastname varchar(255), program_enrolled varchar(255), expected_graduation_year int, student_id int, primary key(student_id));INSERT student VALUES('Allen','Brown','mechanical',2017,110001);
+CREATE TABLE student(firstname varchar(255), lastname varchar(255), program_enrolled varchar(255), expected_graduation_year int, student_id int, primary key(student_id));
+INSERT student VALUES('Allen','Brown','mechanical',2017,110001);
 INSERT student VALUES('David','Brown','mechanical',2017,110002);
 INSERT student VALUES('Mary','Green','mechanical',2018,110003);
 INSERT student VALUES('Dennis','Green','electrical',2018,110004);
