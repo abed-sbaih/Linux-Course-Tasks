@@ -1,0 +1,63 @@
+This file contains the steps taken to create the yum local repository, which contains
+zabbix rpms, and configuring it to work using yum, by installing tmux, apache (httpd)
+and mysql.
+After configuring it, installing some files only from that repository.
+
+First, we will install tmux using the command:
+yum install tmux
+
+Then, we will install httpd and mysql:
+yum install httpd mysql -y
+
+After that we will install createrepo:
+yum install createrepo
+
+After that we will create a configuration file for owr repository temporarily,
+and will create the repo after:
+vim /etc/yum.repos.d/zabbix.repo
+
+and add the following text:
+[zabbix]
+name=Zabbix
+baseurl=https://repo.zabbix.com/zabbix/4.4/rhel/7/x86_64/
+enabled=1
+gpgcheck=0
+
+and try to install a package from zabbix after disabling other repositories, using:
+yum install zabbix-server
+
+It installs some rpms and dependencies but not all of them.
+
+Now, we will create the directory containing all zabbix rpms:
+pwd
+-> /tmp/task1
+mkdir zabbixrepo
+cd zabbixrepo
+wget -A rpm -r --no-check-certificate https://repo.zabbix.com/zabbix/4.4/rhel/7/x86_64/
+
+Which will get all rpms and store them in the current directory, which is
+/tmp/task1/zabbixrepo and then create the repository, using:
+createrepo /tmp/task1/zabbixrepo
+
+then we will change the entry of the base url in the config file
+/etc/yum.repos.d/zabbix.repo
+to the newly created repository
+baseurl=file:///tmp/task1/zabbixrepo
+and test the repository.
+
+The repository was tested, some dependencies must be installed
+with the required package.
+
+Some dependencies are not installed, therefore we will enable all repositories
+in yum, to see if the dependencies are there using:
+yum-config-manager --enable \*
+
+To check for these dependencies you can use:
+yum deplist <package name>
+
+After enabling all repositories, even like this the dependencies were not installed,
+therefore to install them we used the following command:
+yum deplist <package-name> | grep providor | gawk '{ print $2}' | xargs yum -y install
+This way all dependencies can be installed before the package itself, and after it
+use:
+yum install <package-name>

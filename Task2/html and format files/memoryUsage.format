@@ -1,0 +1,32 @@
+<!DOCTYPE>
+<html>
+<head>
+<style>
+table, td, th {
+        border: 1px solid;
+}
+table {
+        border-collapse: collapse;
+        width: 100%;
+}
+td {
+        text-align: center;
+}
+</style>
+</head>
+<body>
+<h1>Memory Usage:</h1>
+<p>Average Used Memory: *usedMem* kB</p>
+<p>Average Free Memory: *freeMem* kB</p>
+<table>
+        <tr>
+                <th>Date</th>
+                <th>Used Memory (kB)</th>
+                <th>Free Memory (kB)</th>
+        </tr>
+        *data*
+</table>
+<hr>
+</body>
+
+</html>

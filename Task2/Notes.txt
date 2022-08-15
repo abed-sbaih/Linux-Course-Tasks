@@ -1,0 +1,49 @@
+-We have created two scripts (created in /tmp/task2):
+1. collectStats.sh script: which is used to collect data for all item types: used disk
+space, free disk space, used memory space, free memory space, and cpu utilization. It
+then tidies the data, and stores in a systemStats directory defined in the
+current directory. This directory contains 5 subdirectories for each item type.
+(systemStats/usedDisk, systemStats/freeDisk, systemStats/usedMemory,
+systemStats/freeMemory, systemStats/cpuUtils directories). A cronjob is created to
+execute this script every 1 hour, to acquire the data. And the data is saved to files
+with name format: (item-type_time-stamp).
+
+2. calAvgs.sh script: uses the data collected to calculate the avgs for each item type
+and stores the resulting averages in a directory called 'avgs' in the current directory.
+
+-http service was enabled as follows in order to use http connection to the internet:
+1. httpd was restarted
+systemctl restart httpd
+
+2. an index.html file was added to /var/www/html directory. containing the required
+info.
+
+3. http service was added permanently to the firewall.
+firewall-cmd --permanent --zone=public --add-service=http
+
+4. 80 and 443 ports were added permanently to the firewall.
+firewall-cmd --permanent --zone=public --add-port=80/tcp
+firewall-cmd --permanent --zone=public --add-port=443/tcp
+
+5. firewall was reloaded.
+firewall-cmd --reload
+
+6. the url used to connect to chrome is <server-id>:80 for the main index.html file.
+
+-Three other html files were defined in /var/www/html called:
+1. cpuUsage.html: this html file shows all data collected for the cpu utilization
+        and the cpu utilization average.
+2. memoryUsage.html: this html file shows all data collected for memory free space and
+        memory used space, as well as their average.
+3. diskUsage.html: this html file shows all data collected for disk free space and
+        disk used space, as well as their corresponding averages.
+
+-Also, three format files were created that contain the content for the html
+files, and will be used to append output from collecting data, and then put them
+in the html file. All format files have the same name as the html file above.
+
+-The second script is executed after the first script.
+
+-A cronjob was created for the first script to be executed, it was set to run every
+2 mins for sake of testing.
+*/2 * * * * /tmp/task2/collectStats.sh

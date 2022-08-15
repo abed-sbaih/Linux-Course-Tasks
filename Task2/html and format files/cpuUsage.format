@@ -1,0 +1,31 @@
+<!DOCTYPE>
+<html>
+<head>
+<style>
+table, th, td {
+        border: 1px solid;
+}
+table {
+        width: 100%;
+        border-collapse: collapse;
+}
+td {
+        text-align: center;
+}
+</style>
+</head>
+<body>
+<h1>CPU Usage:</h1>
+
+<p>Average CPU Utilization: *cpuUtil* %</p>
+<table>
+        <tr>
+                <th>Date</th>
+                <th>CPU Utilization % </th>
+        </tr>
+        *data*
+</table>
+<hr>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# installing mariadb-server.
+yum install mariadb-server
+
+# enabling and starting mariadb
+systemctl start mariadb
+systemctl enable mariadb
+
+# checking status of mariadb
+systemctl status mariadb
+
+# running the mysql_secure_installaion for performing several security related tasks
+mysql_secure_installation
+
+# to open port 3306 to mariadb, we added the following line to /etc/my.cnf
+# bind-address=10.10.40.48 and commented the skip-networking line
+
+# opening iptables port 3306
+iptables -I INPUT -p tcp -m tcp --dport 3306 -j ACCEPT
+service iptables save
+
+
+# mariadb was opened using root user with no password, using:
+mysql -u root -p
+
+# and a user was created using and all privileges were granted to that user
+CREATE USER 'user1'@localhost IDENTIFIED BY 'password1;';
+GRANT ALL PRIVILEGES ON *.* TO 'user1'@localhost IDENTIFIED BY 'password1;';
+FLUSH PRIVILEGES;
+
+# the database was created as shown, and used:
+CREATE DATABASE studentdb;
+USE studentdb;
+
+# creating table and inserting required data
+CREATE TABLE student(firstname varchar(255), lastname varchar(255), program_enrolled varchar(255), expected_graduation_year int, student_id int, primary key(student_id));INSERT student VALUES('Allen','Brown','mechanical',2017,110001);
+INSERT student VALUES('David','Brown','mechanical',2017,110002);
+INSERT student VALUES('Mary','Green','mechanical',2018,110003);
+INSERT student VALUES('Dennis','Green','electrical',2018,110004);
+INSERT student VALUES('Joseph','Black','electrical',2018,110005);
+INSERT student VALUES('Dennis','Black','electrical',2020,110006);
+INSERT student VALUES('Ritchie','Salt','computer science',2020,110007);
+INSERT student VALUES('Robert','Salt','computer science',2020,110008);
+INSERT student VALUES('David','Suzuki','computer science',2020,110009);
+INSERT student VALUES('Mary','Chen','computer science',2020,110010);
+
+# now we can see all data entries using
+SELECT * FROM student;
+
+# and quit the database using
+quit;
+
+# to enter database using the created user we use:
+mysql -u user1 -p
+# and enter the created password

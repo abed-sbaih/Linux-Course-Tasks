@@ -1,0 +1,2 @@
+These format files are all created in direcory /var/www/html/
+in order to be used as html files for showing the data collected.

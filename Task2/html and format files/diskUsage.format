@@ -1,0 +1,32 @@
+<!DOCTYPE>
+<html>
+<head>
+<style>
+table, td, th {
+        border: 1px solid;
+}
+table {
+        border-collapse: collapse;
+        width: 100%;
+}
+td {
+        text-align: center;
+}
+</style>
+</head>
+<body>
+<h1>Disk Usage</h1>
+
+<p>Average Used Disk Space: *usedDisk* kB</p>
+<p>Average Free Disk Space: *freeDisk* kB</p>
+<table>
+        <tr>
+                <th>Date</th>
+                <th>Used Disk Space (kB)</th>
+                <th>Free Disk Space (kB)</th>
+        </tr>
+        *data*
+</table>
+<hr>
+</body>
+</html>
